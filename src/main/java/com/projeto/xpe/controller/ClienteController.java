@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.projeto.xpe.model.Cliente;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -36,12 +37,15 @@ public class ClienteController {
     }
 
     @PostMapping
-    public Cliente salvar(@RequestBody Cliente cliente) {
-        return clienteService.salvar(cliente);
+    public ResponseEntity<Void> salvar(@RequestBody Cliente cliente) {
+        Cliente criado_cliente = clienteService.salvar(cliente);
+        URI uri = URI.create("/clientes/" + criado_cliente.getId());
+        return ResponseEntity.created(uri).build();
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         clienteService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
