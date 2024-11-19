@@ -2,6 +2,7 @@ package com.projeto.xpe.service;
 import com.projeto.xpe.model.Cliente;
 import com.projeto.xpe.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -28,8 +29,17 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    public void deletar(Long id) {
+    public ResponseEntity<Void> deletar(Long id) {
+
+        // Verifica se o cliente existe
+        if (!clienteRepository.existsById(id)) {
+            // Retorna 404 Not Found caso o cliente não exista
+            return ResponseEntity.notFound().build();
+        }
+
         clienteRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+
     }
 
     public long contarClientes() {

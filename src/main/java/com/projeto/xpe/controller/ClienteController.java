@@ -14,6 +14,7 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+
     @GetMapping
     public List<Cliente> listarTodos() {
         return clienteService.listarTodos();
@@ -45,7 +46,6 @@ public class ClienteController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        clienteService.deletar(id);
-        return ResponseEntity.noContent().build();
+        return clienteService.deletar(id);
     }
 }
