@@ -38,10 +38,10 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> salvar(@RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> salvar(@RequestBody Cliente cliente) {
         Cliente criado_cliente = clienteService.salvar(cliente);
         URI uri = URI.create("/clientes/" + criado_cliente.getId());
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(criado_cliente);
     }
 
     @DeleteMapping("/{id}")
