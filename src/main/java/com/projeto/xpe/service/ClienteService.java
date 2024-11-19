@@ -25,6 +25,17 @@ public class ClienteService {
         return clienteRepository.findByNome(nome);
     }
 
+    public Cliente atualizar(Long id, Cliente cliente) {
+        // Verifica se o cliente existe
+        if (!clienteRepository.existsById(id)) {
+            return null;  // Se o cliente não existir, retorna null
+        }
+
+        // Atualiza o cliente
+        cliente.setId(id);  // Garantir que o id fornecido seja usado
+        return clienteRepository.save(cliente);
+    }
+
     public Cliente salvar(Cliente cliente) {
         return clienteRepository.save(cliente);
     }

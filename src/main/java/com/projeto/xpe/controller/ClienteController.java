@@ -48,4 +48,16 @@ public class ClienteController {
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         return clienteService.deletar(id);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
+        Cliente clienteAtualizado = clienteService.atualizar(id, cliente);
+
+        if (clienteAtualizado == null) {
+            return ResponseEntity.notFound().build();  // Retorna 404 se o cliente não existir
+        }
+
+        return ResponseEntity.ok(clienteAtualizado);  // Retorna 200 e os dados do cliente atualizado
+    }
+
 }
